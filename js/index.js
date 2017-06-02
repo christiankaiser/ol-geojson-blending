@@ -1,3 +1,12 @@
+// Figure out which language we need to write the labels in.
+// Default is French, available is also German.
+var lang = 'fr';
+var supportedLangs = {fr:'fr', de:'de'};
+var href = window.location.href.split('?');
+if (href.length > 1) {
+  lang = supportedLangs[href[1]] || lang; 
+}
+
 var baseLayer = new ol.layer.Tile({
   source: new ol.source.XYZ({
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
@@ -24,13 +33,14 @@ var regViticFillStyle = function(feature, resolution){
   })
 };
 var regViticStrokeStyle = function(feature, resolution){
-  fontsize = resolution > 200 ? '12px' : '14px'
+  var fontsize = resolution > 200 ? '12px' : '14px';
+  var lbl = lang == 'de' ? 'nom_de' : 'nom';
   return new ol.style.Style({
     stroke: new ol.style.Stroke({ color: '#fff', width: 1 }),
     text: new ol.style.Text({
       textAlign: 'center',
       font: fontsize+'/1.2 Verdana, sans-serif',
-      text: resolution > 400 ? '' : feature.getProperties().nom.replace(' (', "\n("),
+      text: resolution > 400 ? '' : feature.getProperties()[lbl].replace(' (', "\n("),
       fill: new ol.style.Fill({color: '#000'}),
       stroke: new ol.style.Stroke({ color: 'rgba(255, 255, 255, 0.5)', width: 2 })
     })

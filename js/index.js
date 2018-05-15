@@ -33,7 +33,7 @@ var regViticFillStyle = function(feature, resolution){
   })
 };
 var regViticStrokeStyle = function(feature, resolution){
-  var fontsize = resolution > 200 ? '12px' : '14px';
+  var fontsize = resolution > 200 ? '14px' : '16px';
   var lbl = lang == 'de' ? 'nom_de' : 'nom';
   return new ol.style.Style({
     stroke: new ol.style.Stroke({ color: '#fff', width: 1 }),
@@ -42,7 +42,7 @@ var regViticStrokeStyle = function(feature, resolution){
       font: fontsize+'/1.2 Verdana, sans-serif',
       text: resolution > 400 ? '' : feature.getProperties()[lbl].replace(' (', "\n("),
       fill: new ol.style.Fill({color: '#000'}),
-      stroke: new ol.style.Stroke({ color: 'rgba(255, 255, 255, 0.5)', width: 2 })
+      stroke: new ol.style.Stroke({ color: 'rgba(255, 255, 255, 0.5)', width: 4 })
     })
   })
 };
